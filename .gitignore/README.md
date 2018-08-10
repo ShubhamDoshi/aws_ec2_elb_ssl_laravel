@@ -18,7 +18,7 @@ Using the X-Forwarded-Proto header of the HTTP request, change your web serverâ€
 
 This way, if clients use HTTP to access your website, they are redirected to an HTTPS URL, and if clients use HTTPS, they are served directly by the web server.
 
-Apache 
+Apache <br>
 <VirtualHost *:80><br>
 <br>
 RewriteEngine On <br>
