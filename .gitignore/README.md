@@ -25,7 +25,7 @@ RewriteEngine On <br>
 RewriteCond %{HTTP:X-Forwarded-Proto} =http<br>
 RewriteRule .* https://%{HTTP:Host}%{REQUEST_URI} [L,R=permanent]<br>
 <br>
-</VirtualHost><br>
+<\/VirtualHost> <br>
 
 .htaccess<br>
 
