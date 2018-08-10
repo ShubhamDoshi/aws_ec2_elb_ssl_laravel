@@ -6,7 +6,8 @@ but I donâ€™t want to change my backend listener to port 443. When I redirect tr
 my website stops working, and I receive this error message: ERR_TOO_MANY_REDIRECTS. How do I resolve this?
 This error is commonly caused by the following:
 
-    The rewrite rule on the web server for directing HTTP requests to HTTPS causes requests to use port 443 for HTTPS traffic on the load balancer.
+    The rewrite rule on the web server for directing HTTP requests to HTTPS causes requests to 
+    use port 443 for HTTPS traffic on the load balancer.
     The load balancer still sends the requests to the backend web server on port 80.
     The backend web server redirects these requests to port 443 on the load balancer.
 
@@ -18,16 +19,16 @@ Using the X-Forwarded-Proto header of the HTTP request, change your web serverâ€
 This way, if clients use HTTP to access your website, they are redirected to an HTTPS URL, and if clients use HTTPS, they are served directly by the web server.
 
 Apache 
-<VirtualHost *:80>
+<VirtualHost *:80><br>
+<br>
+RewriteEngine On <br>
+RewriteCond %{HTTP:X-Forwarded-Proto} =http<br>
+RewriteRule .* https://%{HTTP:Host}%{REQUEST_URI} [L,R=permanent]<br>
+<br>
+</VirtualHost><br>
 
-RewriteEngine On
-RewriteCond %{HTTP:X-Forwarded-Proto} =http
-RewriteRule .* https://%{HTTP:Host}%{REQUEST_URI} [L,R=permanent]
+.htaccess<br>
 
-</VirtualHost>
-
-.htaccess
-
-RewriteEngine On
-RewriteCond %{HTTP:X-Forwarded-Proto} =http
-RewriteRule .* https://%{HTTP:Host}%{REQUEST_URI} [L,R=permanent]
+RewriteEngine On<br>
+RewriteCond %{HTTP:X-Forwarded-Proto} =http<br>
+RewriteRule .* https://%{HTTP:Host}%{REQUEST_URI} [L,R=permanent]<br>
